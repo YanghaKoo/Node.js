@@ -36,9 +36,9 @@ app.get('/introduce',(req,res)=>{
 app.get('/topic/:id',(req,res)=>{
     var topics = ["javascript is...", "nodejs is...", "express is..."]
     var output = `
-        <a href="/topic/0">J</a>    <br>
-        <a href="/topic/1">N</a>    <br>
-        <a href="/topic/2">E</a>    <br><br>
+        <a href="/topic/0">Javascript</a>    <br>
+        <a href="/topic/1">Node</a>    <br>
+        <a href="/topic/2">Express</a>    <br><br>
 
         ${topics[req.params.id]}
     `
