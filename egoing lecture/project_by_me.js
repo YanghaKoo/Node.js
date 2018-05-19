@@ -4,7 +4,7 @@ var app = express();
 app.set("view engine", "jade");
 app.set("views", "views");
 
-//포스트 방식이므로 바디파서 해주기
+//포스트 방식이므로 bodyParser 해주기
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 
