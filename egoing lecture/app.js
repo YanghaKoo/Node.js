@@ -48,7 +48,7 @@ app.get('/dynamic', function(req,res){
     var lis = ''
     for(i=0; i<5; i++){
         lis = lis + '<li>coding</li>'
-    }
+    } 
     var date = new Date();
  
     var output = `<!DOCTYPE html>
