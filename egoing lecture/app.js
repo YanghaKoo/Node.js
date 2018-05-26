@@ -6,7 +6,7 @@ app.locals.pretty = true
 app.set('view engine', 'jade');
 app.set('views','./views')  // 템플릿 엔진을 설정하는 과정(약속), 뒤의 ./views는 관용적인 폴더이름
 
- 
+   
 app.get("/template", function (req,res) {
     res.render('temp',{time : new Date(), title : "제목"});                   //템플릿 엔진을 사용할 떄는 render()를 사용,temp.jade를 보여주겠따. , 두번째 인자로는 .jade파일에서 쓸 변수를 넣어줘
   })
