@@ -5,7 +5,7 @@ var fs = require("fs");
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.locals.pretty = true;
+app.locals.pretty = true; 
 app.set("view engine", "jade");
 app.set("views", "./views_file");
 
@@ -29,7 +29,7 @@ app.post("/topic", (req, res) => {
     res.send(req.body.title);
   });
 });
-
+ 
 
 
 app.get("/topic", (req, res) => {
