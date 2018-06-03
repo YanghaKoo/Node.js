@@ -7,7 +7,7 @@ const port = 1338;
 
 var server = http.createServer( function(request, response){
     response.writeHead(200, { 'Content-Type': 'text/plain' });
-
+ 
     response.end('Hello World2\n');
 
 }  ); // 이거에 의해서 서버가 리턴됨, 서버라는 객체르 통해서 서버 조작, 안의 인자로는 사용자가 들어왔을 때 어떤 내용을 출력할 것인가??를 의미, 요청과 응답 2개의 인자
