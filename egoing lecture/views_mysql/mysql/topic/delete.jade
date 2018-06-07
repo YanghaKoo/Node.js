@@ -1,0 +1,14 @@
+extends ../layout
+
+block content
+
+    article        
+        form(action="/topic/"+topic.id+"/delete" method="post")
+            
+            div= "Delete " + topic.title + "?"
+            p
+            input(type="submit" value="yes")
+            div
+                a(href="/topic/"+topic.id) no
+
+            
