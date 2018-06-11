@@ -1,5 +1,11 @@
-var rint = require("./rint")
+require("http").createServer((req,res)=>{
 
-rint.timer.on("tick",function(){
-    console.log("이벤트를 실행합니다 ^_^")
+    if(req.url == '/'){
+        res.end("Hi!")
+    }else{
+        error.error.error();
+    }
+
+}).listen(3000,function(){
+    console.log("q")
 })
