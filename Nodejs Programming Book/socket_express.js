@@ -8,7 +8,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio.listen(server);
 
-//미들웨어 설정
+//미들웨어를 설정합니다.
 app.use(express.static("public"));
 
 //웹 소캣을 설정
