@@ -3,7 +3,7 @@ var session = require("express-session");
 
 var FileStore = require("session-file-store")(session);
 
-var bkfd2Password = require("pbkdf2-password");
+var bkfd2Password = require("pbkdf2-password"); 
 var hasher = bkfd2Password();
 
 var passport = require("passport");
