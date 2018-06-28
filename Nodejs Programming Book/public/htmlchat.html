@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<!-- 
+<script>
+
+    $(document).ready(function () {
+
+        var socekt = io.connect();
+        socket.on("message", data => {
+            var output = `
+                <li>
+                    <h3>${data.name}</h3>
+                    <p>${data.message}</p>    
+                    <p>${data.date}</p>
+                </li>
+            `
+            $(output).prependTo('#content');
+        })
+
+        $('button').click(function () {
+            alert("aa")
+            var data = {
+                name: document.getElementById("name").value,
+                message: document.getElementById("message").value,
+                date: new Date().toUTCString()
+            }
+            socket.emit("mess", data)
+        })
+
+
+    })
+
+
+
+</script> -->
+
+<body>
+    <h1>socket io chat</h1>
+    <p>Chat with Nodejs</p>
+    <hr>
+    <input id="name">
+    <input id="message">
+
+    <button id="myButton">button</button>
+
+    <ul id="content">
+
+
+    </ul>
+
+    <script>
+
+        var socket = io.connect();
+     
+        document.getElementById("myButton").onclick = function () {
+
+            socket.emit("mess", {
+                name: document.getElementById("name").value,
+                message: document.getElementById("message").value,
+                date: new Date().toUTCString()
+            })
+
+            socket.on("message",data=>{
+                console.log(data)
+            })
+
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        window.onload = function(){
+            
+            var socket = io.connect()
+            var name = prompt("이름을 입력해 주세요", "이름")
+            socket.emit("setname",name)
+            
+            socket.on("responsename",function(data){
+                alert(data)
+            })
+            
+            document.getElementById("button").onclick = function(){
+                socket.emit("getname")
+            }
+
+
+        }
+    
+    </script>
+</head>
+<body>
+    <button id="button">Get Name!</button>    
+</body>
+</html>

@@ -1,7 +1,6 @@
 var fs = require("fs");
 var express = require("express");
 var app = express();
-var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 var multer = require("multer"); // multer모듈 적용 (for 파일업로드)
 
@@ -16,7 +15,6 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 
 app.use(express.static("uploads"));
-app.use(cookieParser());
 app.use(bodyParser());
 
 app.set("view engine", "jade");
@@ -31,8 +29,6 @@ app.post("/", upload.single("imgFile"), (req, res) => {
 
   res.send(`hi <img src="/${req.file.originalname}">`);
 });
-
-
 
 app.listen(3000, function() {
   console.log("aa");

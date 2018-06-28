@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Socket</title>
+    
+    <!-- const io = socektIo.listen(server) 서버 페이지의 이 코드 덕분에 아래 코드가 가능한 것 -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        window.onload = function () {
+
+            var socket = io.connect()
+            var roomName = prompt("방 이름을 입력해 주세요 ", "")
+
+            // 일단 클라이언트를 키자마자 roomName을 입력받아서 보냄
+            socket.emit("joinABCD",{
+                roomName : roomName
+            })
+
+
+            // 그 후에 버튼을 누르면 message라는 이벤트로 From client라는 메세지를 또 보냄
+            document.getElementById("myButton").onclick =function(){
+                socket.emit("message")
+            }
+            
+            socket.on("message",function(data){
+                alert(data.message)
+            })
+
+        }
+
+    </script>
+</head>
+
+<body>
+    <button id="myButton">Click</button>
+
+</body>
+
+</html>

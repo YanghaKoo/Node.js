@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <title>Document</title>
+    <meta charset="utf-8">
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        window.onload = function () {
+            
+            
+            
+            var socket = io.connect();
+            socket.on("smart", function (data) {
+                alert(data)
+            })
+
+            document.getElementById("b").onclick = function () {
+                var text = document.getElementById("text").value
+                socket.emit("rint", text)
+               }
+            }
+
+
+    </script>
+</head>
+
+<body>
+    <input type="text" id="text">
+    <input type="button" id="b" value="제출">
+</body>
+
+</html>

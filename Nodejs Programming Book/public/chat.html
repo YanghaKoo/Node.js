@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>chat with nodejs</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="jquery-3.3.1.js"></script>
+</head>
+
+<body>
+    <h1>Socket Io Chat</h1>
+    <p>chat with nodejs</p>
+
+    <hr/>
+
+    <input placeholder="name" name="name" id="name">
+    <input placeholder="content" name="content" id="content">
+    <button id="myButton">Enter</button>
+
+
+
+
+
+
+    <script>
+        var socket = io.connect();
+        var chatRoom = prompt("입장할 채팅방 코드를 알려주세요", "basic")
+
+        socket.emit("chatRoom",{chatRoom:chatRoom})
+
+
+
+        // 입력된 채팅 내용을 body 태그에 붙입니다.
+        socket.on("print", function (data) {
+
+            var name = $("<h1></h1>").html(data.name)
+            var content = $("<p></p>").html(data.content)
+
+            $(name).appendTo("body")
+            $(content).appendTo("body")
+        })
+
+
+
+        // 버튼을 클릭하면 서버로 데이터를 전송 + content창을 비웁니다.
+        $("button").on("click", function () {
+            if (($("#content").val() == '') || ($("#name").val() == '')) {
+                alert("이름과 내용을  모두 입력해 주세요")
+
+            } else {
+                socket.emit("message", {
+                    name: $("#name").val(),
+                    content: $("#content").val()
+                })
+                $("#content").val("")
+            }
+        })
+
+
+
+        // content 위에 커서있으면 enterkey 눌러서 버튼 누르기
+        $("#content").keyup(function (event) {
+            if (event.keyCode === 13) {
+                $("#myButton").click();
+            }
+        });
+
+
+
+    </script>
+</body>
+
+</html>
