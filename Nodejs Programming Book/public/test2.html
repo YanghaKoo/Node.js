@@ -1,0 +1,83 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="jquery-3.3.1.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <title>Document</title>
+    <style>
+        .line {
+            overflow: hidden
+        }
+
+        .seat {
+            margin: 2px;
+            float: left;
+            width: 30px;
+            height: 30px;
+            border-radius: 3px
+        }
+
+        .enable {
+            background: grey
+        }
+
+        .enable:hover {
+            background: black
+        }
+
+        .disable {
+            background: red
+        }
+    </style>
+</head>
+<body>
+    <script>
+        const socket = io.connect();
+        socket.on("reserve",function(data){
+            var $target = $("div[data-x="+data.x+"][data-y="+data.y+"]")
+            $target.off("click")
+            $target.removeClass("enable")
+            $target.addClass("disable")
+        })
+    </script>
+    <script>
+        var onClickSeat = function () { 
+            var x = $(this).attr("data-x")
+            var y = $(this).attr("data-y")
+            if(confirm("예약하실?")){
+            socket.emit("reserve",{x,y})
+            }else {alert("취소되었습니다.")}
+         }
+
+       
+
+
+
+        $.getJSON("/seats", function (data) {
+
+            $.each(data, function (indexY, line) {
+                var $line = $("<div></div>").addClass("line")
+                $.each(line, function (indexX, seat) {
+                    var $output = $("<div></div>", {
+                        "class": "seat",
+                        "data-x": indexX,
+                        "data-y": indexY
+                    }).appendTo($line)
+
+                    if (seat === 1) {
+                        $output.addClass("enable").on("click", onClickSeat)
+                    } else if (seat === 2) {
+                        $output.addClass("disable")
+                    }
+                })
+                $line.appendTo("body")
+            })
+
+        })
+
+
+    </script>
+</body>
+
+</html>

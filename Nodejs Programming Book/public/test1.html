@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Reservation</title>
+    <style>
+        .line {
+            overflow: hidden
+        }
+
+        .seat {
+            margin: 2px;
+            float: left;
+            width: 30px;
+            height: 30px;
+            border-radius: 3px;
+        }
+
+        .enable {
+            background: grey
+        }
+
+        .enable:hover {
+            background: black
+        }
+
+        .disable {
+            background: red
+        }
+    </style>
+
+    <script src="jquery-3.3.1.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- 소켓 생성 -->
+    <script>
+        var socket = io.connect();
+        socket.on("reserve", function (data) {
+            var $target = $('div[data-x=' + data.x + "][data-y=" + data.y + "]")
+            $target.removeClass("enable")
+            $target.addClass("disable")
+        })
+
+        // 예약 취소 추가구현
+        socket.on("cancle", function (data) {
+            var $target = $('div[data-x=' + data.x + "][data-y=" + data.y + "]")
+            $target.removeClass("disable")
+            $target.addClass("enable")
+        })
+    </script>
+
+
+    <!-- 초기좌석생성 -->
+    <script>
+        $(document).ready(function () {
+
+
+            var onClickSeat = function () {
+                var x = $(this).attr('data-x')
+                var y = $(this).attr('data-y')
+
+                if (confirm('좌석을 예약하시겠습니까?')) {
+                    $(this).off('click') // 클릭이벤트를 제거
+                    $(this).on("click", cancleReserve)
+                    socket.emit('reserve', {
+                        x: x,
+                        y: y
+                    })
+
+                } else {
+                    alert("취소되었습니다.")
+                }
+            }
+
+            var cancleReserve = function () {
+                var x = $(this).attr("data-x")
+                var y = $(this).attr("data-y")
+                if (confirm("예약을 취소하시겠습니까?")) {
+                    $(this).off("click")
+                    $(this).on("click", onClickSeat)
+                    socket.emit("cancle", {
+                        x: x,
+                        y: y
+                    })
+
+                } else {
+                    alert("취소되었습니다.")
+                }
+            }
+
+            // 아니여기서 dummy는 어디로 가는거야
+            $.getJSON('/seats', {
+                // 이 dummy는 인터넷 익스플로러 때문인데 dummy를 어디서 접근할 수 있는지는 모르겠음..
+                dummy: new Date().getTime(),
+            }, function (data) {
+                // 여기에 극장정보 가져옴, 2차원 배열
+                $.each(data, function (indexY, line) {
+                    var $line = $("<div></div>").addClass('line')
+                    $.each(line, function (indexX, seat) {
+                        var $output = $("<div></div>", {
+                            'class': 'seat',
+                            'data-x': indexX,
+                            'data-y': indexY
+                        }).appendTo($line)
+
+                        if (seat === 1) {
+                            $output.addClass('enable').on("click", onClickSeat)
+                            //$output.addClass('enable')
+                            //$("#enable").on("click",onClickSeat)
+
+                        } else if (seat === 2) {
+                            $output.addClass('disable').on("click", cancleReserve)
+                        }
+
+                        $line.appendTo('body')
+                        // 하나의 행 그리기 완료
+                    })
+                })
+
+            })
+
+        })
+
+
+
+    </script>
+</head>
+
+<body>
+    hi
+</body>
+
+</html>
