@@ -8,7 +8,7 @@ const io = socketIo.listen(server)
 
 app.use(express.static('public'))
 
-var seats = [
+let seats = [
     [1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 1],
     [2, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1],
     [1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1],
