@@ -1,7 +1,7 @@
-module.exports.sum = function(a,b){
-    return a+b
+module.exports.sum = function(a,b,c){
+    return a+b+c
 }
 
-module.exports.avg = function(a,b){
-    return (a+b)/2
+module.exports.avg = function(a,b,c){
+    return (a+b+c)/3
 }
