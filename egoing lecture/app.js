@@ -1,7 +1,7 @@
 var express = require('express')
 var app = express(); // 우리가 가져온 모듈(express)는 사실 함수여서 실행시켜서 리턴을 해줘야함
                      // 여기까진 원리가 없이 그냥 만든사람이 이렇게 만드는거
-
+ 
 app.locals.pretty = true
 app.set('view engine', 'jade');
 app.set('views','./views')  // 템플릿 엔진을 설정하는 과정(약속), 뒤의 ./views는 관용적인 폴더이름
